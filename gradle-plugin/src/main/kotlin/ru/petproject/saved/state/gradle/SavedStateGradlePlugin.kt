@@ -23,7 +23,7 @@ class SavedStateGradlePlugin : KotlinCompilerPluginSupportPlugin {
     override fun getCompilerPluginId(): String = PLUGIN_ID
 
     override fun getPluginArtifact(): SubpluginArtifact = SubpluginArtifact(
-        groupId = "ru.petproject",
+        groupId = "ru.petproject.saved-state",
         artifactId = PLUGIN_ID,
         version = VERSION
     )
@@ -39,7 +39,7 @@ class SavedStateGradlePlugin : KotlinCompilerPluginSupportPlugin {
         val project = kotlinCompilation.target.project
         project.dependencies.add(
             "implementation",
-            "ru.petproject.saved.state:saved-state-core:$VERSION"
+            "ru.petproject.saved-state:annotation-core:$VERSION"
         )
 
         return project.provider { emptyList() }

@@ -1,11 +1,8 @@
 plugins {
     id "java-gradle-plugin"
-    id "maven-publish"
     id "org.jetbrains.kotlin.jvm"
+    id "com.vanniktech.maven.publish"
 }
-
-group = "ru.petproject.saved-state"
-version = "1.0.0"
 
 repositories {
     mavenCentral()
@@ -14,18 +11,10 @@ repositories {
 gradlePlugin {
     plugins {
         savedStatePlugin {
-            id = "ru.petproject.saved-state-gradle-plugin"
+            id = "ru.petproject.saved-state"
             implementationClass = "ru.petproject.saved.state.gradle.SavedStateGradlePlugin"
             displayName = "SavedState Gradle Plugin"
             description = "Plugin provide compiler plugin and implement lib with annotation"
-        }
-    }
-}
-
-publishing {
-    repositories {
-        maven {
-
         }
     }
 }

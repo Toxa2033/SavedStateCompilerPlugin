@@ -9,14 +9,6 @@ repositories {
     mavenCentral()
 }
 
-jar {
-    manifest {
-        attributes["Specification-Title"] = project.name
-        attributes["Specification-Version"] = project.version
-        attributes["Implementation-Title"] = "ru.petproject.saved-state-compiler-plugin"
-        attributes["Implementation-Version"] = project.version
-    }
-}
 
 tasks.withType(KotlinCompile).all {
     kotlinOptions {

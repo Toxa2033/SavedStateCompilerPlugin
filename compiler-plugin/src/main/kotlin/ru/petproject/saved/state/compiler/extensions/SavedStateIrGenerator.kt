@@ -11,6 +11,7 @@ import org.jetbrains.kotlin.ir.declarations.IrProperty
 import org.jetbrains.kotlin.ir.declarations.IrSimpleFunction
 import org.jetbrains.kotlin.ir.declarations.IrValueParameter
 import org.jetbrains.kotlin.ir.descriptors.IrBasedValueParameterDescriptor
+import org.jetbrains.kotlin.ir.descriptors.toIrBasedDescriptor
 import org.jetbrains.kotlin.ir.expressions.*
 import org.jetbrains.kotlin.ir.expressions.impl.*
 import org.jetbrains.kotlin.ir.interpreter.toIrConst
@@ -111,37 +112,42 @@ class SavedStateIrGenerator(
 
 
     /**
-    FUN name:getMap visibility:public modality:FINAL <> ($this:<root>.Soma) returnType:kotlin.collections.List<kotlin.String>
-    $this: VALUE_PARAMETER name:<this> type:<root>.Soma
-    VALUE_PARAMETER name:phone index:0 type:kotlin.collections.List<types.String>?
-      EXPRESSION_BODY
-        CONST Null type=kotlin.Nothing? value=null
-    BLOCK_BODY
-        RETURN type=kotlin.Nothing from='public final fun getTestLiveData (): <root>.MutableLiveData<kotlin.String> declared in <root>.Soma'
-            CALL 'public final fun getLiveData <T> (key: kotlin.String): <root>.MutableLiveData<T of androidx.lifecycle.SavedStateHandle.getLiveData> declared in androidx.lifecycle.SavedStateHandle' type=<root>.MutableLiveData<kotlin.String> origin=null
-                <T>: kotlin.String
-                $this: CALL 'private final fun <get-savedStateHandle> (): androidx.lifecycle.SavedStateHandle declared in <root>.Soma' type=androidx.lifecycle.SavedStateHandle origin=GET_PROPERTY
-                    $this: GET_VAR '<this>: <root>.Soma declared in <root>.Soma.getTestLiveData' type=<root>.Soma origin=null
-                key: CONST String type=kotlin.String value="key"
+    FUN name:getLiveData visibility:public modality:FINAL <> ($this:<root>.Test, default:kotlin.String?) returnType:androidx.lifecycle.MutableLiveData<kotlin.String>
+        $this: VALUE_PARAMETER name:<this> type:<root>.Test
+        VALUE_PARAMETER name:default index:0 type:kotlin.String?
+            EXPRESSION_BODY
+                CONST Null type=kotlin.Nothing? value=null
+        BLOCK_BODY
+            RETURN type=kotlin.Nothing from='public final fun getLiveData (default: kotlin.String?): androidx.lifecycle.MutableLiveData<kotlin.String> declared in <root>.Test'
+                CALL 'public final fun getLiveData <T> (key: kotlin.String, initialValue: T of androidx.lifecycle.SavedStateHandle.getLiveData?): androidx.lifecycle.MutableLiveData<T of androidx.lifecycle.SavedStateHandle.getLiveData> declared in androidx.lifecycle.SavedStateHandle' type=androidx.lifecycle.MutableLiveData<kotlin.String> origin=null
+                    <T>: kotlin.String
+                    $this: CALL 'private final fun <get-savedStateHandle> (): androidx.lifecycle.SavedStateHandle declared in <root>.Test' type=androidx.lifecycle.SavedStateHandle origin=GET_PROPERTY
+                        $this: GET_VAR '<this>: <root>.Test declared in <root>.Test.getLiveData' type=<root>.Test origin=null
+                    key: CONST String type=kotlin.String value="phone"
+                    initialValue: GET_VAR 'default: kotlin.String? declared in <root>.Test.getLiveData' type=kotlin.String? origin=null
      * */
     private fun IrSimpleFunction.fillGetLiveData(saveStateProperty: IrProperty, originalPropertyName: String) {
         val funDispatchReceiverParameter = dispatchReceiverParameter ?: notFoundDispatcherParameters(name)
         val getterSavedState = saveStateProperty.getter ?: notFoundGetterError(saveStateProperty.name)
-        val getFunction = saveStateProperty.findFunctionByNameFromClassProperty(METHOD_GET_LIVE_DATA)
+        val getFunction = saveStateProperty.findFunctionByNameFromClassProperty(METHOD_GET_LIVE_DATA, countArgs = 2)
         val isLiveData = returnTypeIsLiveData()
 
-        val typeValueParameter = valueParameters.firstOrNull()?.defaultValue?.expression?.type ?: error("Not found default value for auto generated get<Variable>LiveData method")
+        val valueParam = valueParameters.firstOrNull() ?: error("Not found default value for auto generated get${originalPropertyName}LiveData method")
+
+        val typeValueParameter = valueParam.defaultValue?.expression?.type ?: error("Not found default value in get${originalPropertyName}LiveData")
 
         val expressionBodyDefaultValue = pluginContext.irFactory.createExpressionBody(startOffset, endOffset) {
-            expression = IrConstImpl(startOffset,endOffset, typeValueParameter, IrConstKind.Null, null)
+            expression = IrConstImpl(startOffset, endOffset, typeValueParameter, IrConstKind.Null, null)
         }
 
         valueParameters.firstOrNull()?.defaultValue = expressionBodyDefaultValue
+
 
         val typeArgument = if(isLiveData) returnType.getArguments()?.firstOrNull() else returnType
         val blockBody = pluginContext.blockBody(symbol) {
             val call = irCall(getFunction).also { call ->
                 call.putValueArgument(0, irString(originalPropertyName))
+                call.putValueArgument(1, irGet(valueParam))
                 call.putTypeArgument(0, typeArgument)
                 call.dispatchReceiver = irCall(getterSavedState).also {
                     it.dispatchReceiver = irGet(funDispatchReceiverParameter)
@@ -211,8 +217,12 @@ BLOCK_BODY
         body = blockBody
     }
 
-    private fun IrProperty.findFunctionByNameFromClassProperty(name:String): IrSimpleFunction {
-        return backingField?.type?.classOrNull?.functions?.firstOrNull { it.owner.name.asString() == name }?.owner
+    private fun IrProperty.findFunctionByNameFromClassProperty(
+        name:String, countArgs: Int? = null
+    ): IrSimpleFunction {
+        return backingField?.type?.classOrNull?.functions?.firstOrNull { func ->
+            func.owner.name.asString() == name && (countArgs == null || func.owner.valueParameters.size == countArgs)
+        }?.owner
             ?: error("NotFound function $name in class ${this.name}")
     }
 
