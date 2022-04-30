@@ -1,0 +1,54 @@
+<idea-plugin>
+    <id>ru.petproject.saved.state.plugin.idea</id>
+    <name>Saved State</name>
+    <version>1.0.0</version>
+    <vendor email="95toxa95@gmail.com">Toxa2033</vendor>
+
+    <description><![CDATA[
+    The IDEA plugin for no-copy, a Kotlin compiler plugin that removes the `copy` method of data classes.<br>
+    <a href="https://github.com/AhmedMourad0/no-copy">Visit on Github</a>
+    ]]></description>
+
+    <depends>org.jetbrains.kotlin</depends>
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="org.jetbrains.kotlin">
+        <syntheticResolveExtension
+                implementation="ru.petproject.saved.state.plugin.idea.SynthResolveExtension"
+                order="first"
+        />
+        <irGenerationExtension implementation="ru.petproject.saved.state.plugin.idea.IrGeneration"
+            order="first" />
+
+    </extensions>
+
+    <extensions defaultExtensionNs="com.intellij">
+
+    <localInspection
+            language="kotlin"
+            displayName="SavedState Plugin: this type is not supported for save in SavedStateHandle."
+            groupPath="Kotlin"
+            groupBundle="messages.InspectionsBundle"
+            groupKey="group.names.initialization.issues"
+            enabledByDefault="true"
+            level="ERROR"
+            suppressId="UnsupportedSavedStateType"
+            shortName="UnsupportedSavedStateType"
+            implementationClass="ru.petproject.saved.state.plugin.idea.AnnotatedUnsupportedTypeInspection"
+    />
+
+        <localInspection
+                language="kotlin"
+                displayName="SavedState Plugin: Not found androidx.lifecycle.SavedStateHandle in class"
+                groupPath="Kotlin"
+                groupBundle="messages.InspectionsBundle"
+                groupKey="group.names.initialization.issues"
+                enabledByDefault="true"
+                level="ERROR"
+                suppressId="NotFoundSavedStateHandler"
+                shortName="NotFoundSavedStateHandler"
+                implementationClass="ru.petproject.saved.state.plugin.idea.SaveStateHandlerInspection"
+        />
+    </extensions>
+
+</idea-plugin>

@@ -1,0 +1,24 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm'
+    id 'maven-publish'
+}
+
+repositories {
+    mavenCentral()
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            def publicationGroup = "ru.petproject.saved.state"
+            def publicationArtifact = "saved-state-core"
+            def publicationVersion = "1.0.0"
+            library(MavenPublication) {
+                from components.kotlin
+                groupId = publicationGroup
+                artifactId = publicationArtifact
+                version = publicationVersion
+            }
+        }
+    }
+}

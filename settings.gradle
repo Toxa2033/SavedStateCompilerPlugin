@@ -1,0 +1,7 @@
+rootProject.name = 'SavedStatePlugin'
+
+include(":compiler-plugin")
+include(":core")
+include(":gradle-plugin")
+include(":idea-plugin")
+include(":sample")
