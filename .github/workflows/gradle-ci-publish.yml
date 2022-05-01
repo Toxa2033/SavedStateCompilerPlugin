@@ -20,12 +20,10 @@ jobs:
         uses: battila7/get-version-action@v2.2.1
 
       - name: Set version
-        run: echo "RELEASE_VERSION=${{ steps.get_version.outputs.version-without-v }}" >> $GITHUB_ENV
+        run: echo "RELEASE_VERSION="${{ steps.get_version.outputs.version-without-v }} >> $GITHUB_ENV
+
       - name: Check version
         run: echo $RELEASE_VERSION
-
-      - name: Check version2
-        run: echo ${{ env.RELEASE_VERSION }}
 
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
