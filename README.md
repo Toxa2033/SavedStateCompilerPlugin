@@ -79,6 +79,7 @@ The plugin also allows:
 
 1.Type checking. 
 Supports all types from the [documentation](https://developer.android.com/topic/libraries/architecture/viewmodel-savedstate#types) and indicates an error if, for example, POJO did not implement parcelable
+
 <img width="618" alt="Снимок экрана 2022-05-01 в 15 21 35" src="https://user-images.githubusercontent.com/7330056/166145646-dfbf4767-f895-436d-9bf0-c512cda1b13f.png">
 
 
