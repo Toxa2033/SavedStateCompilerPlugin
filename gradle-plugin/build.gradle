@@ -14,7 +14,7 @@ gradlePlugin {
             id = "ru.petproject.saved-state"
             implementationClass = "ru.petproject.saved.state.gradle.SavedStateGradlePlugin"
             displayName = "SavedState Gradle Plugin"
-            description = "Plugin provide compiler plugin and implement lib with annotation"
+            description = "Kotlin compiler plugin generates support methods for use SaveStateHandle without constants and string variables."
         }
     }
 }

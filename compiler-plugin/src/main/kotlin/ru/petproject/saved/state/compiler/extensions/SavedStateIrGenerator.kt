@@ -223,7 +223,7 @@ BLOCK_BODY
         return backingField?.type?.classOrNull?.functions?.firstOrNull { func ->
             func.owner.name.asString() == name && (countArgs == null || func.owner.valueParameters.size == countArgs)
         }?.owner
-            ?: error("NotFound function $name in class ${this.name}")
+            ?: error("Not Found function $name in class ${this.name}")
     }
 
     private fun IrType.getArguments(): ArrayList<IrType>? {
