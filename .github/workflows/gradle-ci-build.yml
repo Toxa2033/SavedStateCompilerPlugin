@@ -19,13 +19,10 @@ jobs:
           java-version: 11
 
       - name: Set version
-        run: echo "RELEASE_VERSION=123" >> $GITHUB_ENV
+        run: echo "RELEASE_VERSION="${{ secrets.OSSRH_USERNAME }} >> $GITHUB_ENV
 
       - name: Check version
         run: echo $RELEASE_VERSION
-
-      - name: Check version2
-        run: echo ${{ env.RELEASE_VERSION }}
 
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
