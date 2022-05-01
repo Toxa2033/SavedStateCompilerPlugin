@@ -17,6 +17,7 @@ jobs:
           java-version: 11
 
       - name: Get Version
+      - id: get_version
         uses: battila7/get-version-action@v2.2.1
 
       - name: Set version
