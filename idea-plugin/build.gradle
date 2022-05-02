@@ -25,7 +25,11 @@ intellij {
 patchPluginXml {
     sinceBuild = "191.0"
     untilBuild = "212.*"
-    version = System.getenv('RELEASE_VERSION') ?: "0.0.0-SNAPSHOT"
+    version = System.getenv('RELEASE_VERSION') ?: "1.0.0"
+}
+
+publishPlugin {
+    token = System.getenv("IDEA_PUBLISH_TOKEN")
 }
 
 runIde {
