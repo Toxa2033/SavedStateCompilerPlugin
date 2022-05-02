@@ -2,7 +2,7 @@ import com.tschuchort.compiletesting.KotlinCompilation
 import com.tschuchort.compiletesting.SourceFile
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
-import ru.petproject.saved.state.compiler.utils.capitalize
+import io.github.toxa2033.saved.state.compiler.utils.capitalize
 
 class CapacityTest {
 
@@ -31,7 +31,7 @@ private fun createClass(className: String): String {
     return """
     import androidx.lifecycle.SavedStateHandle
     import androidx.lifecycle.MutableLiveData
-    import ru.petproject.saved.state.core.SaveState
+    import io.github.toxa2033.saved.state.core.SaveState
                      
     class $capName(
     private val savedStateHandle: SavedStateHandle

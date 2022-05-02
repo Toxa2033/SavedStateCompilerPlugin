@@ -1,7 +1,7 @@
 import com.tschuchort.compiletesting.KotlinCompilation
 import com.tschuchort.compiletesting.SourceFile
 import org.jetbrains.kotlin.compiler.plugin.ComponentRegistrar
-import ru.petproject.saved.state.compiler.SavedStateComponentRegistrar
+import io.github.toxa2033.saved.state.compiler.SavedStateComponentRegistrar
 
 fun compile(
     sourceFiles: List<SourceFile>,

@@ -12,7 +12,7 @@ class TypeTests {
                 "test.kt", """
  import androidx.lifecycle.SavedStateHandle
  import androidx.lifecycle.MutableLiveData
-import ru.petproject.saved.state.core.SaveState
+import io.github.toxa2033.saved.state.core.SaveState
 open class Soma(
 private val savedStateHandle: SavedStateHandle
 ) {
@@ -52,7 +52,7 @@ private val savedStateHandle: SavedStateHandle
  import androidx.lifecycle.SavedStateHandle
  import androidx.lifecycle.LiveData
  import androidx.lifecycle.MutableLiveData
-import ru.petproject.saved.state.core.SaveState
+import io.github.toxa2033.saved.state.core.SaveState
 class Soma(
 private val savedStateHandle: SavedStateHandle
 ) {
@@ -91,7 +91,7 @@ private val savedStateHandle: SavedStateHandle
                 "test.kt", """
  import androidx.lifecycle.SavedStateHandle
  import androidx.lifecycle.MutableLiveData
- import ru.petproject.saved.state.core.SaveState
+ import io.github.toxa2033.saved.state.core.SaveState
 class Soma(
 private val savedStateHandle: SavedStateHandle
 ) {
@@ -128,7 +128,7 @@ private val savedStateHandle: SavedStateHandle
             sourceFile = SourceFile.kotlin(
                 "test.kt", """
  import androidx.lifecycle.*
-import ru.petproject.saved.state.core.SaveState
+import io.github.toxa2033.saved.state.core.SaveState
 import types.SupportParcelableType
 class Soma(
 private val savedStateHandle: SavedStateHandle
@@ -166,7 +166,7 @@ private val savedStateHandle: SavedStateHandle
             sourceFile = SourceFile.kotlin(
                 "test.kt", """
  import androidx.lifecycle.*
-import ru.petproject.saved.state.core.SaveState
+import io.github.toxa2033.saved.state.core.SaveState
 import types.SupportParcelableType
 class Soma(
 private val savedStateHandle: SavedStateHandle

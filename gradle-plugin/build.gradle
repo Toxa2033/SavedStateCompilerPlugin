@@ -1,11 +1,14 @@
 plugins {
     id "java-gradle-plugin"
-    id "maven-publish"
     id "org.jetbrains.kotlin.jvm"
+    id "com.vanniktech.maven.publish"
+    id "com.github.gmazzo.buildconfig" version "3.0.3"
+    id "com.gradle.plugin-publish" version "0.18.0"
 }
 
-group = "ru.petproject.saved-state"
-version = "1.0.0"
+buildConfig {
+    buildConfigField("String", "RELEASE_VERSION", provider { "\"${project.version}\"" })
+}
 
 repositories {
     mavenCentral()
@@ -14,36 +17,35 @@ repositories {
 gradlePlugin {
     plugins {
         savedStatePlugin {
-            id = "ru.petproject.saved-state-gradle-plugin"
-            implementationClass = "ru.petproject.saved.state.gradle.SavedStateGradlePlugin"
+            id = "io.github.toxa2033.saved-state"
+            implementationClass = "io.github.toxa2033.saved.state.gradle.SavedStateGradlePlugin"
             displayName = "SavedState Gradle Plugin"
-            description = "Plugin provide compiler plugin and implement lib with annotation"
+            description = "Kotlin compiler plugin generates support methods for use SaveStateHandle without constants and string variables."
         }
     }
 }
 
-publishing {
-    repositories {
-        maven {
+pluginBundle {
+    website = "https://github.com/Toxa2033/SavedStateCompilerPlugin"
+    vcsUrl = "https://github.com/Toxa2033/SavedStateCompilerPlugin"
+    description = "The gradle plugin for kotlin compiler plugin generates support methods for use SaveStateHandle without constants and string variables."
+    tags = ["kotlin-compiler", "gradle-plugin", "intellij-plugin", "compiler-plugin",
+            "annotations", "kotlin", "kotlin-library", "kotlin-compiler-plugin",
+            "inspections", "kotlin-plugin"]
 
-        }
-    }
-}
-
-/*pluginBundle {
     plugins {
         savedStatePlugin {
             displayName = "SavedState Gradle Plugin"
-            version = "1.0.0"
+            version = project.version
         }
     }
 
     mavenCoordinates {
-        groupId = "ru.petproject"
-        artifactId = "saved-state-gradle-plugin"
-        version = "1.0.0"
+        groupId = "io.github.toxa2033.saved-state"
+        artifactId = "gradle-plugin"
+        version = project.version
     }
-}*/
+}
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
