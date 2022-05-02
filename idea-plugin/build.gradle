@@ -23,6 +23,8 @@ intellij {
 }
 
 patchPluginXml {
+    sinceBuild = "191.0"
+    untilBuild = "212.*"
     version = System.getenv('RELEASE_VERSION') ?: "0.0.0-SNAPSHOT"
 }
 
