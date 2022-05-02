@@ -11,8 +11,8 @@ repositories {
 gradlePlugin {
     plugins {
         savedStatePlugin {
-            id = "ru.petproject.saved-state"
-            implementationClass = "ru.petproject.saved.state.gradle.SavedStateGradlePlugin"
+            id = "io.github.toxa2033.saved-state"
+            implementationClass = "io.github.toxa2033.saved.state.gradle.SavedStateGradlePlugin"
             displayName = "SavedState Gradle Plugin"
             description = "Kotlin compiler plugin generates support methods for use SaveStateHandle without constants and string variables."
         }
@@ -28,7 +28,7 @@ gradlePlugin {
     }
 
     mavenCoordinates {
-        groupId = "ru.petproject"
+        groupId = "io.github.toxa2033"
         artifactId = "saved-state-gradle-plugin"
         version = "1.0.0"
     }

@@ -1,12 +1,11 @@
 <idea-plugin>
-    <id>ru.petproject.saved.state.plugin.idea</id>
-    <name>Saved State</name>
-    <version>1.0.0</version>
+    <id>io.github.toxa2033.saved.state.plugin.idea</id>
+    <name>Saved State IDEA</name>
     <vendor email="95toxa95@gmail.com">Toxa2033</vendor>
 
     <description><![CDATA[
-    The IDEA plugin for no-copy, a Kotlin compiler plugin that removes the `copy` method of data classes.<br>
-    <a href="https://github.com/AhmedMourad0/no-copy">Visit on Github</a>
+    Kotlin compiler plugin generates support methods for use SaveStateHandle without constants and string variables.<br>
+    <a href="https://github.com/Toxa2033/SavedStateCompilerPlugin">Visit on Github</a>
     ]]></description>
 
     <depends>org.jetbrains.kotlin</depends>
@@ -14,10 +13,10 @@
 
     <extensions defaultExtensionNs="org.jetbrains.kotlin">
         <syntheticResolveExtension
-                implementation="ru.petproject.saved.state.plugin.idea.SynthResolveExtension"
+                implementation="io.github.toxa2033.saved.state.plugin.idea.SynthResolveExtension"
                 order="first"
         />
-        <irGenerationExtension implementation="ru.petproject.saved.state.plugin.idea.IrGeneration"
+        <irGenerationExtension implementation="io.github.toxa2033.saved.state.plugin.idea.IrGeneration"
             order="first" />
 
     </extensions>
@@ -34,7 +33,7 @@
             level="ERROR"
             suppressId="UnsupportedSavedStateType"
             shortName="UnsupportedSavedStateType"
-            implementationClass="ru.petproject.saved.state.plugin.idea.AnnotatedUnsupportedTypeInspection"
+            implementationClass="io.github.toxa2033.saved.state.plugin.idea.AnnotatedUnsupportedTypeInspection"
     />
 
         <localInspection
@@ -47,7 +46,7 @@
                 level="ERROR"
                 suppressId="NotFoundSavedStateHandler"
                 shortName="NotFoundSavedStateHandler"
-                implementationClass="ru.petproject.saved.state.plugin.idea.SaveStateHandlerInspection"
+                implementationClass="io.github.toxa2033.saved.state.plugin.idea.SaveStateHandlerInspection"
         />
     </extensions>
 

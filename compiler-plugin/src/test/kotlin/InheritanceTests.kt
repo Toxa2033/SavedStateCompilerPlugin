@@ -13,7 +13,7 @@ class InheritanceTests {
  import androidx.lifecycle.SavedStateHandle
  import androidx.lifecycle.LiveData
  import androidx.lifecycle.MutableLiveData
-import ru.petproject.saved.state.core.SaveState
+import io.github.toxa2033.saved.state.core.SaveState
 
 open class A (private val savedStateHandle: SavedStateHandle){
     @SaveState

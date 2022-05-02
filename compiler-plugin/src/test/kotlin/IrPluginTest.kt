@@ -26,7 +26,7 @@ class Soma() {
                 "test.kt", """
 import androidx.lifecycle.SavedStateHandle
  import androidx.lifecycle.MutableLiveData
- import ru.petproject.saved.state.core.SaveState
+ import io.github.toxa2033.saved.state.core.SaveState
 class Test(
 private val savedStateHandle: SavedStateHandle
 ) {

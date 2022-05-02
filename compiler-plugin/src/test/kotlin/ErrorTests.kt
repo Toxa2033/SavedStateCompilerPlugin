@@ -2,7 +2,7 @@ import com.tschuchort.compiletesting.KotlinCompilation
 import com.tschuchort.compiletesting.SourceFile
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
-import ru.petproject.saved.state.compiler.utils.NOT_FOUND_SAVED_STATE_HANDLER_PROPERTY_ERROR
+import io.github.toxa2033.saved.state.compiler.utils.NOT_FOUND_SAVED_STATE_HANDLER_PROPERTY_ERROR
 
 class ErrorTests {
     @Test
@@ -12,7 +12,7 @@ class ErrorTests {
                 "test.kt", """
  import androidx.lifecycle.SavedStateHandle
  import androidx.lifecycle.MutableLiveData
-import ru.petproject.saved.state.core.SaveState
+import io.github.toxa2033.saved.state.core.SaveState
 class Soma() {
     
     @SaveState
@@ -36,7 +36,7 @@ class Soma() {
 import androidx.lifecycle.SavedStateHandle
  import androidx.lifecycle.MutableLiveData
 import types.UnsupportedType
- import ru.petproject.saved.state.core.SaveState
+ import io.github.toxa2033.saved.state.core.SaveState
 class Soma(
 private val savedStateHandle: SavedStateHandle
 ) {

@@ -23,7 +23,7 @@ allprojects {
     }
 
     plugins.withId("com.vanniktech.maven.publish.base") {
-        version = System.getenv('RELEASE_VERSION') ?: "0.0.0"
+        version = System.getenv('RELEASE_VERSION') ?: "0.0.0-SNAPSHOT"
         println("CURRENT VER: $version")
         mavenPublishing {
             signAllPublications()
