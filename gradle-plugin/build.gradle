@@ -3,6 +3,7 @@ plugins {
     id "org.jetbrains.kotlin.jvm"
     id "com.vanniktech.maven.publish"
     id "com.github.gmazzo.buildconfig" version "3.0.3"
+    id "com.gradle.plugin-publish" version "0.18.0"
 }
 
 buildConfig {
@@ -21,6 +22,28 @@ gradlePlugin {
             displayName = "SavedState Gradle Plugin"
             description = "Kotlin compiler plugin generates support methods for use SaveStateHandle without constants and string variables."
         }
+    }
+}
+
+pluginBundle {
+    website = "https://github.com/Toxa2033/SavedStateCompilerPlugin"
+    vcsUrl = "https://github.com/Toxa2033/SavedStateCompilerPlugin"
+    description = "The gradle plugin for kotlin compiler plugin generates support methods for use SaveStateHandle without constants and string variables."
+    tags = ["kotlin-compiler", "gradle-plugin", "intellij-plugin", "compiler-plugin",
+            "annotations", "kotlin", "kotlin-library", "kotlin-compiler-plugin",
+            "inspections", "kotlin-plugin"]
+
+    plugins {
+        savedStatePlugin {
+            displayName = "SavedState Gradle Plugin"
+            version = project.version
+        }
+    }
+
+    mavenCoordinates {
+        groupId = "io.github.toxa2033.saved-state"
+        artifactId = "gradle-plugin"
+        version = project.version
     }
 }
 
