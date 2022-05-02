@@ -1,5 +1,6 @@
 package io.github.toxa2033.saved.state.gradle
 
+import io.github.toxa____.saved_state.gradle_plugin.BuildConfig
 import org.gradle.api.Project
 import org.gradle.api.provider.Provider
 import org.jetbrains.kotlin.gradle.plugin.KotlinCompilation
@@ -13,14 +14,12 @@ class SavedStateGradlePlugin : KotlinCompilerPluginSupportPlugin {
         return kotlinCompilation.target.project.plugins.hasPlugin(SavedStateGradlePlugin::class.java)
     }
 
-    private val version = System.getenv(RELEASE_VERSION_CONST) ?: VERSION_DEFAULT
-
     override fun getCompilerPluginId(): String = PLUGIN_ID
 
     override fun getPluginArtifact(): SubpluginArtifact = SubpluginArtifact(
         groupId = "io.github.toxa2033.saved-state",
         artifactId = PLUGIN_ID,
-        version = version
+        version = BuildConfig.RELEASE_VERSION
     )
 
     override fun apply(target: Project) {
@@ -30,11 +29,10 @@ class SavedStateGradlePlugin : KotlinCompilerPluginSupportPlugin {
     override fun applyToCompilation(
         kotlinCompilation: KotlinCompilation<*>
     ): Provider<List<SubpluginOption>> {
-        println("VERSION OF IMPL LIB: $version")
         val project = kotlinCompilation.target.project
         project.dependencies.add(
             "implementation",
-            "io.github.toxa2033.saved-state:annotation-core:$version"
+            "io.github.toxa2033.saved-state:annotation-core:${BuildConfig.RELEASE_VERSION}"
         )
 
         return project.provider { emptyList() }

@@ -2,6 +2,11 @@ plugins {
     id "java-gradle-plugin"
     id "org.jetbrains.kotlin.jvm"
     id "com.vanniktech.maven.publish"
+    id "com.github.gmazzo.buildconfig" version "3.0.3"
+}
+
+buildConfig {
+    buildConfigField("String", "RELEASE_VERSION", provider { "\"${project.version}\"" })
 }
 
 repositories {
@@ -18,21 +23,6 @@ gradlePlugin {
         }
     }
 }
-
-/*pluginBundle {
-    plugins {
-        savedStatePlugin {
-            displayName = "SavedState Gradle Plugin"
-            version = "1.0.0"
-        }
-    }
-
-    mavenCoordinates {
-        groupId = "io.github.toxa2033"
-        artifactId = "saved-state-gradle-plugin"
-        version = "1.0.0"
-    }
-}*/
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
