@@ -122,15 +122,16 @@ apply plugin: 'io.github.toxa2033.saved-state'
 plugins {
     id 'io.github.toxa2033.saved-state'
 }
+```
 
+```gradle
 dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
 }
 ```
-
 ### IDE Support
 
-- Install the [https://plugins.jetbrains.com/plugin/19096-savedstatehandle-kotlin-compiler/](IDEA plugin) 
+- Install the [IDEA plugin](https://plugins.jetbrains.com/plugin/19096-savedstatehandle-kotlin-compiler)
 1. Launch the IDE and open plugin settings (Preferences -> Plugins -> Marketplace)
 2. Search for "SavedStateHandle Kotlin Compiler" and click install
 
