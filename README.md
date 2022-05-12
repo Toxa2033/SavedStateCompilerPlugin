@@ -38,6 +38,7 @@ This plugin eliminates necessity declares a variable. Same example with plugin:
 **Importance:** 
 * The SaveStateHandle variable mast be declarated in class. 
 * As a key for SaveStateHandle plugin uses name of a annotated variable
+* Supported variable types are listed [here](https://developer.android.com/topic/libraries/architecture/viewmodel-savedstate#types). Also, all these types can be specified as a generic param in LiveData or MutableLiveData
 
 ## 4 generated methods
 
