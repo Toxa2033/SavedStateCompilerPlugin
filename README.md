@@ -8,9 +8,13 @@ If need to use SaveStateHandle, you must declare a variable, like that:
 ```kotlin
     companion object {
         private const val TEXT_FIELD = "text"
+        private const val PASSWORD_FIELD = "password"
     }
 
     val text: MutableLiveData<String> = savedStateHandle.getLiveData(TEXT_FIELD, "Hello World")
+    
+    val password: String
+        get() = savedStateHandle[PASSWORD_FIELD]
 ```
 
 
@@ -19,6 +23,11 @@ This plugin eliminates necessity declares a variable. Same example with plugin:
 ```kotlin
     @SaveState
     val text: MutableLiveData<String> = getTextLiveData("Hello World")
+    
+    @SaveState
+    val password: String
+        get() = gePasswordValue()
+   
 ```
 
 # How it use
@@ -86,6 +95,50 @@ Supports all types from the [documentation](https://developer.android.com/topic/
 2. Validates presence of a variable SavedStateHandle in a class. If class contain an annotated variable and the variable SavedStateHandle is not found in the class, then the plugin will notify you
 <img width="600" alt="Снимок экрана 2022-05-01 в 15 29 06" src="https://user-images.githubusercontent.com/7330056/166145961-d1096126-9112-4c54-8d79-18e79edf455f.png">
 
+
+## Installation
+
+- In project-level `build.gradle`:
+
+```gradle
+buildscript {
+    repositories {
+        mavenCentral()
+        // Or
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath "io.github.toxa2033.saved-state:gradle-plugin:1.0.0"
+    }  
+}
+```
+
+- In module-level `build.gradle`:
+
+```gradle
+// For each module that needs to use the annotations
+apply plugin: 'io.github.toxa2033.saved-state'
+//or 
+plugins {
+    id 'io.github.toxa2033.saved-state'
+}
+
+dependencies {
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
+}
+```
+
+### IDE Support
+
+- Install the [https://plugins.jetbrains.com/plugin/19096-savedstatehandle-kotlin-compiler/](IDEA plugin) 
+1. Launch the IDE and open plugin settings (Preferences -> Plugins -> Marketplace)
+2. Search for "SavedStateHandle Kotlin Compiler" and click install
+
+## Versions
+
+| Kotlin Version | Plugin Version |
+| :------------: | :------------: |
+| 1.5.30 - 1.6.21 | 1.0.*
 
 License
 -------
