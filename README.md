@@ -109,7 +109,7 @@ buildscript {
         gradlePluginPortal()
     }
     dependencies {
-        classpath "io.github.toxa2033.saved-state:gradle-plugin:1.0.0"
+        classpath "io.github.toxa2033.saved-state:gradle-plugin:1.0.5"
     }  
 }
 ```
