@@ -1,11 +1,11 @@
 <idea-plugin>
     <id>io.github.toxa2033.saved.state.plugin.idea</id>
-    <name>Saved State IDEA</name>
+    <name>SavedStateHandle Kotlin Compiler</name>
     <vendor email="95toxa95@gmail.com">Toxa2033</vendor>
 
     <description><![CDATA[
-    Kotlin compiler plugin generates support methods for use SaveStateHandle without constants and string variables.<br>
-    <a href="https://github.com/Toxa2033/SavedStateCompilerPlugin">Visit on Github</a>
+    This plugin adds support to intellij idea kotlin compiler plugin for generating SavedStateHandle helper methods.<br>
+    <a href="https://github.com/Toxa2033/SavedStateCompilerPlugin">Visit on Github for more information</a>
     ]]></description>
 
     <depends>org.jetbrains.kotlin</depends>

@@ -18,6 +18,8 @@ import org.jetbrains.kotlin.types.KotlinTypeFactory
 import org.jetbrains.kotlin.types.typeUtil.asTypeProjection
 import org.jetbrains.kotlin.types.typeUtil.makeNullable
 import io.github.toxa2033.saved.state.compiler.utils.FqNames.SAVE_STATE_ANNOTATION_NAME
+import org.jetbrains.kotlin.name.FqName
+import org.jetbrains.kotlin.resolve.descriptorUtil.fqNameSafe
 import java.util.concurrent.ConcurrentLinkedDeque
 
 open class SavedStateResolveExtension : SyntheticResolveExtension {
@@ -40,7 +42,10 @@ open class SavedStateResolveExtension : SyntheticResolveExtension {
         fromSupertypes: List<SimpleFunctionDescriptor>,
         result: MutableCollection<SimpleFunctionDescriptor>
     ) {
-        val propertyDescriptionData = listPropertyDescriptionData.find { name in it.creations } ?: return
+        val propertyDescriptionData = listPropertyDescriptionData.find {
+            it.classDescriptorFqName == thisDescriptor.fqNameSafe
+        } ?: return
+        if (name !in propertyDescriptionData.creations) return
         println("FUNCTION CREATED - $name" +
                 "\nClass - ${thisDescriptor.name}" +
                 " list method ${listPropertyDescriptionData.map { it.creations }}"
@@ -80,7 +85,7 @@ open class SavedStateResolveExtension : SyntheticResolveExtension {
                 Name.identifier("$GET$fieldName$VALUE"),
                 Name.identifier("$GET_IDENTIFIER_START$fieldName")
             )
-            listPropertyDescriptionData.add(PropertyDescriptionData(listMethod, property))
+            listPropertyDescriptionData.add(PropertyDescriptionData(listMethod, property, thisDescriptor.fqNameSafe))
             propertyNames.add(Name.identifier("${property.name.asString()}$IDENTIFIER".uppercase()))
             listMethod
         }
@@ -120,7 +125,7 @@ open class SavedStateResolveExtension : SyntheticResolveExtension {
                 emptyList(),
                 thisClassDescriptor.builtIns.stringType,
                 Modality.FINAL,
-                DescriptorVisibilities.PRIVATE
+                DescriptorVisibilities.PROTECTED
             )
         }
     }
@@ -167,7 +172,7 @@ open class SavedStateResolveExtension : SyntheticResolveExtension {
                 listOfNotNull(argument),
                 type,
                 Modality.FINAL,
-                DescriptorVisibilities.PRIVATE
+                DescriptorVisibilities.PROTECTED
             )
         }
     }
@@ -208,7 +213,7 @@ open class SavedStateResolveExtension : SyntheticResolveExtension {
                 listOf(argument),
                 thisClassDescriptor.builtIns.unitType,
                 Modality.FINAL,
-                DescriptorVisibilities.PRIVATE
+                DescriptorVisibilities.PROTECTED
             )
         }
     }
@@ -243,5 +248,6 @@ private val ClassDescriptor.mutableLifecycleClassDescriptor: ClassDescriptor
 
 data class PropertyDescriptionData(
     val creations: List<Name>,
-    val property: PropertyDescriptor
+    val property: PropertyDescriptor,
+    val classDescriptorFqName: FqName
 )
