@@ -125,7 +125,7 @@ class SavedStateIrGenerator(
 
         val valueParam = valueParameters.firstOrNull() ?: error("Not found default value for auto generated get${originalPropertyName}LiveData method")
 
-        val typeValueParameter = valueParam.defaultValue?.expression?.type ?: error("Not found default value in get${originalPropertyName}LiveData")
+        val typeValueParameter = valueParam.symbol.owner.type
 
         val expressionBodyDefaultValue = pluginContext.irFactory.createExpressionBody(startOffset, endOffset) {
             expression = IrConstImpl(startOffset, endOffset, typeValueParameter, IrConstKind.Null, null)
