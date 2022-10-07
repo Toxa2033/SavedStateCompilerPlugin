@@ -1,3 +1,5 @@
+# Experimental not stable plugin
+
 # SavedState Compiler Plugin
 
 Kotlin compiler plugin generates support methods for use SaveStateHandle without constants and string variables. 
